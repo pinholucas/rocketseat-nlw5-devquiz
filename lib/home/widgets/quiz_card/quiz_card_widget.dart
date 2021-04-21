@@ -1,5 +1,6 @@
 import 'package:devquiz/core/app_colors.dart';
 import 'package:devquiz/core/app_text_styles.dart';
+import 'package:devquiz/shared/widgets/horizontal_progress_indicator.dart';
 import 'package:flutter/material.dart';
 
 class QuizCardWidget extends StatelessWidget {
@@ -21,9 +22,10 @@ class QuizCardWidget extends StatelessWidget {
       child: Container(
         height: 180,
         decoration: BoxDecoration(
-            color: AppColors.white,
-            border: Border.all(color: AppColors.border),
-            borderRadius: BorderRadius.circular(10)),
+          color: AppColors.white,
+          border: Border.all(color: AppColors.border),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Container(
           padding: const EdgeInsets.all(15),
           child: Column(
@@ -45,11 +47,8 @@ class QuizCardWidget extends StatelessWidget {
                     flex: 5,
                     child: Container(
                       height: 4,
-                      child: LinearProgressIndicator(
+                      child: HorizontalProgressIndicator(
                         value: (completed / total),
-                        valueColor: new AlwaysStoppedAnimation<Color>(
-                            AppColors.chartPrimary),
-                        backgroundColor: AppColors.chartSecondary,
                       ),
                     ),
                   )
