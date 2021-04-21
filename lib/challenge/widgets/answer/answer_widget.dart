@@ -25,6 +25,9 @@ class AnswerWidget extends StatelessWidget {
       isRight ? AppColors.darkGreen : AppColors.darkRed;
   Color get selectedAnswerCheckboxBorderColor =>
       isRight ? AppColors.lightGreen : AppColors.lightRed;
+  Color get selectedAnswerCheckboxShadowColor => isRight
+      ? AppColors.darkGreen.withOpacity(.4)
+      : AppColors.darkRed.withOpacity(.4);
 
   IconData get selectedAnswerIcon => isRight ? Icons.check : Icons.close;
 
@@ -49,7 +52,16 @@ class AnswerWidget extends StatelessWidget {
             width: 24,
             decoration: BoxDecoration(
               color: (isSelected ? selectedAnswerCheckboxColor : null),
-              //boxShadow: BoxShadow(color: 0xFF04D361),
+              boxShadow: [
+                BoxShadow(
+                  color: isSelected
+                      ? selectedAnswerCheckboxShadowColor
+                      : Colors.transparent,
+                  spreadRadius: 0,
+                  blurRadius: 12,
+                  offset: Offset(0, 4),
+                )
+              ],
               border: Border.all(
                   color: isSelected
                       ? selectedAnswerCheckboxBorderColor
