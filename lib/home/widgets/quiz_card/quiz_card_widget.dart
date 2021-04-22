@@ -17,45 +17,41 @@ class QuizCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Container(
-        height: 180,
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.all(color: AppColors.border),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(icon),
-              Text(title, style: AppTextStyles.heading15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                        completed.toString() + ' de ' + total.toString(),
-                        style: AppTextStyles.body),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      height: 4,
-                      child: HorizontalProgressIndicator(
-                        value: (completed / total),
-                      ),
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset('assets/images/' + icon + '.png'),
+            Text(title, style: AppTextStyles.heading15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Text(completed.toString() + ' de ' + total.toString(),
+                      style: AppTextStyles.body),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    height: 4,
+                    child: HorizontalProgressIndicator(
+                      value: (completed / total),
                     ),
-                  )
-                ],
-              )
-            ],
-          ),
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
