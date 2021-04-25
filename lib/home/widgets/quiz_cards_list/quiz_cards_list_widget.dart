@@ -1,4 +1,4 @@
-import 'package:devquiz/core/app_images.dart';
+import 'package:devquiz/challenge/challenge_page.dart';
 import 'package:devquiz/home/widgets/quiz_card/quiz_card_widget.dart';
 import 'package:devquiz/shared/models/quiz_model.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +23,17 @@ class QuizCardListWidget extends StatelessWidget {
                     icon: e.icon,
                     completed: e.questionsAnswered,
                     total: e.questions.length,
+                    onTap: () {
+                      print('clico');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (contexto) => ChallengePage(
+                                    questions: e.questions,
+                                    currentQuestion: e.questionsAnswered,
+                                    totalQuestions: e.questions.length,
+                                  )));
+                    },
                   ))
               .toList(),
         ),

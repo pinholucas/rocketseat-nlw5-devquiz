@@ -6,9 +6,35 @@
         "questionsAnswered": 1,
         "questions": [
             {
-            "title": "Ta curtindo?",
+                "title": "Ta curtindo?",
+                "isAnswered": true,
+                "answerChoice": 1,
                 "answers": [                     
                     {"title": "estou curtindo"},
+                    {"title": "estou curtindo 2"},
+                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 4"}
+                            
+                ]
+            },
+            {
+                "title": "Ta mesmo?",
+                "isAnswered": false,
+                "answerChoice": 0,
+                "answers": [                     
+                    {"title": "estou curtindoxx"},
+                    {"title": "estou curtindo 2"},
+                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 4"}
+                            
+                ]
+            },
+            {
+                "title": "Ta sério?",
+                "isAnswered": false,
+                "answerChoice": 0,
+                "answers": [                     
+                    {"title": "estou curtindouuu"},
                     {"title": "estou curtindo 2"},
                     {"title": "estou curtindo 3", "isRight": true},
                     {"title": "estou curtindo 4"}
@@ -25,7 +51,9 @@
         "questionsAnswered": 1,
         "questions": [
             {
-            "title": "Ta curtindo 2?",
+                "title": "Ta curtindo 2?",
+                "isAnswered": false,
+                "answerChoice": 0,
                 "answers": [                     
                     {"title": "estou curtindox"},
                     {"title": "estou curtindox 2"},
