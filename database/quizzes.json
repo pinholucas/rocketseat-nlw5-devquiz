@@ -3,7 +3,7 @@
         "title": "NLW 5 Flutter",
         "icon": "blocks",
         "level": "facil",
-        "questionsAnswered": 1,
+        "questionsAnswered": 2,
         "questions": [
             {
                 "title": "Ta curtindo?",
@@ -19,8 +19,8 @@
             },
             {
                 "title": "Ta mesmo?",
-                "isAnswered": false,
-                "answerChoice": 0,
+                "isAnswered": true,
+                "answerChoice": 3,
                 "answers": [                     
                     {"title": "estou curtindoxx"},
                     {"title": "estou curtindo 2"},
@@ -31,6 +31,30 @@
             },
             {
                 "title": "Ta sério?",
+                "isAnswered": false,
+                "answerChoice": 0,
+                "answers": [                     
+                    {"title": "estou curtindouuu"},
+                    {"title": "estou curtindo 2"},
+                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 4"}
+                            
+                ]
+            },
+            {
+                "title": "Ta blz?",
+                "isAnswered": false,
+                "answerChoice": 0,
+                "answers": [                     
+                    {"title": "estou curtindouuu"},
+                    {"title": "estou curtindo 2"},
+                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 4"}
+                            
+                ]
+            },
+            {
+                "title": "Ta ok?",
                 "isAnswered": false,
                 "answerChoice": 0,
                 "answers": [                     
