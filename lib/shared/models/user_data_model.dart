@@ -1,25 +1,25 @@
 import 'dart:convert';
 
-import 'package:devquiz/shared/models/user_data_question_model.dart';
+import 'package:devquiz/shared/models/user_data_quizz_model.dart';
 
 class UserDataModel {
   final String name;
   final String photoUrl;
   final int score;
-  final List<UserDataQuestionModel> questionsData;
+  final List<UserDataQuizzModel> quizzesData;
 
   UserDataModel(
       {required this.name,
       required this.photoUrl,
       required this.score,
-      required this.questionsData});
+      required this.quizzesData});
 
   Map<String, dynamic> toMap() {
     return {
       'name': name,
       'photoUrl': photoUrl,
       'score': score,
-      'questions': questionsData.map((x) => x.toMap()).toList(),
+      'quizzesData': quizzesData.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -28,8 +28,8 @@ class UserDataModel {
       name: map['name'],
       photoUrl: map['photoUrl'],
       score: map['score'],
-      questionsData: List<UserDataQuestionModel>.from(
-        map['questions']?.map((x) => UserDataQuestionModel.fromMap(x)),
+      quizzesData: List<UserDataQuizzModel>.from(
+        map['quizzesData']?.map((x) => UserDataQuizzModel.fromMap(x)),
       ),
     );
   }

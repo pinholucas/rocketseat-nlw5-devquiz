@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:devquiz/shared/models/user_data_answer_model.dart';
 
-class UserDataQuestionModel {
+class UserDataQuizzModel {
   final int id;
   final int answeredQuestions;
   final List<UserDataAnswerModel> answersData;
 
-  UserDataQuestionModel(
+  UserDataQuizzModel(
       {required this.id,
       required this.answeredQuestions,
       required this.answersData});
@@ -20,8 +20,8 @@ class UserDataQuestionModel {
     };
   }
 
-  factory UserDataQuestionModel.fromMap(Map<String, dynamic> map) {
-    return UserDataQuestionModel(
+  factory UserDataQuizzModel.fromMap(Map<String, dynamic> map) {
+    return UserDataQuizzModel(
       id: map['id'],
       answeredQuestions: map['answeredQuestions'],
       answersData: List<UserDataAnswerModel>.from(
@@ -32,6 +32,6 @@ class UserDataQuestionModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UserDataQuestionModel.fromJson(String source) =>
-      UserDataQuestionModel.fromMap(json.decode(source));
+  factory UserDataQuizzModel.fromJson(String source) =>
+      UserDataQuizzModel.fromMap(json.decode(source));
 }
