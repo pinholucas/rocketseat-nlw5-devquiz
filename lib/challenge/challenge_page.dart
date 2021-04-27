@@ -1,9 +1,12 @@
-import 'package:devquiz/challenge/widgets/next_button/next_button_widget.dart';
+import 'package:devquiz/feedback/feedback_page.dart';
+import 'package:devquiz/shared/widgets/next_button/next_button_widget.dart';
 import 'package:devquiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:devquiz/challenge/widgets/quiz/quiz_widget.dart';
 import 'package:devquiz/helpers/custom_lock_scroll_physics.dart';
 import 'package:devquiz/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:devquiz/home/home_repository.dart';
 
 import 'challenge_controller.dart';
 
@@ -23,9 +26,21 @@ class ChallengePage extends StatefulWidget {
 
 class _ChallengePageState extends State<ChallengePage> {
   final controller = ChallengeController();
-  final pageController = PageController();
+  late PageController pageController;
 
   ScrollPhysics questionsScrollPhysics = AlwaysScrollableScrollPhysics();
+
+  @override
+  void initState() {
+    controller.currentQuestion = widget.currentQuestion;
+    pageController = PageController(initialPage: widget.currentQuestion);
+
+    pageController.addListener(() {
+      controller.currentQuestion = pageController.page!.toInt();
+    });
+
+    super.initState();
+  }
 
   _onPageChanged(int page) {
     questionsScrollPhysics = widget.questions[page + 1].isAnswered
@@ -39,16 +54,9 @@ class _ChallengePageState extends State<ChallengePage> {
   }
 
   @override
-  void initState() {
-    pageController.addListener(() {
-      controller.currentQuestion = pageController.page!.toInt();
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final repository = HomeRepository();
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
@@ -84,7 +92,19 @@ class _ChallengePageState extends State<ChallengePage> {
               SizedBox(width: 7),
               NextButton.green(
                 label: 'Confirmar',
-                onTap: () {},
+                onTap: () {
+                  repository.setQuestionsAnswered();
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FeedbackPage(
+                          type: 'rightAnswer',
+                          questions: widget.questions,
+                          currentQuestion: widget.currentQuestion),
+                    ),
+                  );
+                },
               ),
             ],
           ),

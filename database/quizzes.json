@@ -9,6 +9,8 @@
                 "title": "Ta curtindo?",
                 "isAnswered": true,
                 "answerChoice": 1,
+                "rightAnswerMessage": "Sim, você está curtindo 3",
+                "wrongAnswerMessage": "Não, você está curtindo 3",
                 "answers": [                     
                     {"title": "estou curtindo"},
                     {"title": "estou curtindo 2"},
@@ -21,10 +23,12 @@
                 "title": "Ta mesmo?",
                 "isAnswered": true,
                 "answerChoice": 3,
+                "rightAnswerMessage": "Sim, você está curtindo 1",
+                "wrongAnswerMessage": "Não, você está curtindo 1",
                 "answers": [                     
-                    {"title": "estou curtindoxx"},
+                    {"title": "estou curtindoxx", "isRight": true},
                     {"title": "estou curtindo 2"},
-                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 3"},
                     {"title": "estou curtindo 4"}
                             
                 ]
@@ -33,10 +37,12 @@
                 "title": "Ta sério?",
                 "isAnswered": false,
                 "answerChoice": 0,
+                "rightAnswerMessage": "Sim, você está curtindo 2",
+                "wrongAnswerMessage": "Não, você está curtindo 2",
                 "answers": [                     
                     {"title": "estou curtindouuu"},
-                    {"title": "estou curtindo 2"},
-                    {"title": "estou curtindo 3", "isRight": true},
+                    {"title": "estou curtindo 2", "isRight": true},
+                    {"title": "estou curtindo 3"},
                     {"title": "estou curtindo 4"}
                             
                 ]
@@ -45,6 +51,8 @@
                 "title": "Ta blz?",
                 "isAnswered": false,
                 "answerChoice": 0,
+                "rightAnswerMessage": "Sim, você está curtindo 3",
+                "wrongAnswerMessage": "Não, você está curtindo 3",
                 "answers": [                     
                     {"title": "estou curtindouuu"},
                     {"title": "estou curtindo 2"},
@@ -57,11 +65,13 @@
                 "title": "Ta ok?",
                 "isAnswered": false,
                 "answerChoice": 0,
+                "rightAnswerMessage": "Sim, você está curtindo 4",
+                "wrongAnswerMessage": "Não, você está curtindo 4",
                 "answers": [                     
                     {"title": "estou curtindouuu"},
                     {"title": "estou curtindo 2"},
-                    {"title": "estou curtindo 3", "isRight": true},
-                    {"title": "estou curtindo 4"}
+                    {"title": "estou curtindo 3"},
+                    {"title": "estou curtindo 4", "isRight": true}
                             
                 ]
             }
@@ -78,10 +88,12 @@
                 "title": "Ta curtindo 2?",
                 "isAnswered": false,
                 "answerChoice": 0,
+                "rightAnswerMessage": "Sim, você está curtindo 2",
+                "wrongAnswerMessage": "Não, você está curtindo 2",
                 "answers": [                     
                     {"title": "estou curtindox"},
-                    {"title": "estou curtindox 2"},
-                    {"title": "estou curtindox 3", "isRight": true},
+                    {"title": "estou curtindox 2", "isRight": true},
+                    {"title": "estou curtindox 3"},
                     {"title": "estou curtindox 4"}
                             
                 ]

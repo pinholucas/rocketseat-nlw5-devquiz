@@ -24,13 +24,15 @@ class QuizCardListWidget extends StatelessWidget {
                     completed: e.questionsAnswered,
                     total: e.questions.length,
                     onTap: () {
-                      print('clico');
+                      int index = e.questions
+                          .indexWhere((element) => element.isAnswered == false);
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (contexto) => ChallengePage(
                                     questions: e.questions,
-                                    currentQuestion: e.questionsAnswered,
+                                    currentQuestion: index,
                                     totalQuestions: e.questions.length,
                                   )));
                     },
