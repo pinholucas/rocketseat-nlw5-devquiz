@@ -30,6 +30,13 @@ class NextButton extends StatelessWidget {
         this.onTap = onTap,
         this.label = label;
 
+  NextButton.purple({required String label, required VoidCallback onTap})
+      : this.borderColor = Colors.transparent,
+        this.backgroundColor = AppColors.purple,
+        this.textColor = AppColors.white,
+        this.onTap = onTap,
+        this.label = label;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
