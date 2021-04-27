@@ -1,26 +1,28 @@
 import 'dart:convert';
 
 class UserDataAnswerModel {
-  final int id;
+  final int questionId;
   final bool isAnswered;
-  final int answerChoice;
+  final int answerChoiceId;
 
   UserDataAnswerModel(
-      {required this.id, required this.isAnswered, required this.answerChoice});
+      {required this.questionId,
+      required this.isAnswered,
+      required this.answerChoiceId});
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'questionId': questionId,
       'isAnswered': isAnswered,
-      'answerChoice': answerChoice,
+      'answerChoiceId': answerChoiceId,
     };
   }
 
   factory UserDataAnswerModel.fromMap(Map<String, dynamic> map) {
     return UserDataAnswerModel(
-      id: map['id'],
+      questionId: map['questionId'],
       isAnswered: map['isAnswered'],
-      answerChoice: map['answerChoice'],
+      answerChoiceId: map['answerChoiceId'],
     );
   }
 

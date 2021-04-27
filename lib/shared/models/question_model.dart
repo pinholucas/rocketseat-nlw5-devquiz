@@ -3,17 +3,15 @@ import 'dart:convert';
 import 'package:devquiz/shared/models/answer_model.dart';
 
 class QuestionModel {
+  final int id;
   final String title;
-  final bool isAnswered;
-  final int answerChoice;
   final String rightAnswerMessage;
   final String wrongAnswerMessage;
   final List<AnswerModel> answers;
 
   QuestionModel({
+    required this.id,
     required this.title,
-    this.isAnswered = false,
-    this.answerChoice = 0,
     required this.rightAnswerMessage,
     required this.wrongAnswerMessage,
     required this.answers,
@@ -21,9 +19,8 @@ class QuestionModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'title': title,
-      'isAnswered': isAnswered,
-      'answerChoice': answerChoice,
       'rightAnswerMessage': rightAnswerMessage,
       'wrongAnswerMessage': wrongAnswerMessage,
       'answers': answers.map((x) => x.toMap()).toList(),
@@ -32,9 +29,8 @@ class QuestionModel {
 
   factory QuestionModel.fromMap(Map<String, dynamic> map) {
     return QuestionModel(
+      id: map['id'],
       title: map['title'],
-      isAnswered: map['isAnswered'],
-      answerChoice: map['answerChoice'],
       rightAnswerMessage: map['rightAnswerMessage'],
       wrongAnswerMessage: map['wrongAnswerMessage'],
       answers: List<AnswerModel>.from(
