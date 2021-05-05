@@ -2,17 +2,22 @@ import 'package:devquiz/challenge/challenge_page.dart';
 import 'package:devquiz/core/app_images.dart';
 import 'package:devquiz/core/app_text_styles.dart';
 import 'package:devquiz/shared/models/question_model.dart';
+import 'package:devquiz/shared/models/user_data_model.dart';
 import 'package:devquiz/shared/widgets/next_button/next_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class FeedbackPage extends StatefulWidget {
+  final UserDataModel userData;
+  final int quizId;
   final String type;
   final String message;
   final List<QuestionModel> questions;
   final int currentQuestion;
 
   FeedbackPage(
-      {required this.type,
+      {required this.userData,
+      required this.quizId,
+      required this.type,
       this.message = "",
       required this.questions,
       required this.currentQuestion})
@@ -61,6 +66,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ChallengePage(
+                                          userData: widget.userData,
+                                          quizId: widget.quizId,
                                           questions: widget.questions,
                                           currentQuestion:
                                               widget.currentQuestion + 1,

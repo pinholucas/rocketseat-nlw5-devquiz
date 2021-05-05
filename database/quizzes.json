@@ -60,8 +60,6 @@
             {
                 "id": 5,
                 "title": "Ta ok?",
-                "isAnswered": false,
-                "answerChoice": 0,
                 "rightAnswerMessage": "Sim, você está curtindo 4",
                 "wrongAnswerMessage": "Não, você está curtindo 4",
                 "answers": [                     

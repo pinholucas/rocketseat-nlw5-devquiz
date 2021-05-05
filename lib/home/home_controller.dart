@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
-class HomeController {
+class HomeController extends ChangeNotifier {
   final stateNotifier = ValueNotifier<HomeState>(HomeState.empty);
   set userDataState(HomeState userDataState) =>
       stateNotifier.value = userDataState;
@@ -56,5 +56,29 @@ class HomeController {
 
       await userDataFile.writeAsString(user.toJson());
     }
+  }
+
+  void setQuestionAnswered(int quizId, int questionId, int answerId) async {
+    final userData = user!;
+
+    userData.quizzesData
+        .firstWhere((element) => element.id == quizId)
+        .answeredQuestions += 1;
+
+    userData.quizzesData
+        .firstWhere((element) => element.id == quizId)
+        .answersData
+        .firstWhere((element) => element.questionId == questionId)
+        .isAnswered = true;
+
+    userData.quizzesData
+        .firstWhere((element) => element.id == quizId)
+        .answersData
+        .firstWhere((element) => element.questionId == questionId)
+        .answerChoiceId = answerId;
+
+    repository.saveUserData(userData);
+
+    notifyListeners();
   }
 }

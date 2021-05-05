@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 
 class ChallengeController {
-  final currentQuestionNotifier = ValueNotifier<int>(0);
-  int get currentQuestion => currentQuestionNotifier.value;
-  set currentQuestion(int value) => currentQuestionNotifier.value = value;
+  final currentQuestionIndexNotifier = ValueNotifier<int>(0);
+  int get currentQuestionIndex => currentQuestionIndexNotifier.value;
+  set currentQuestionIndex(int value) =>
+      currentQuestionIndexNotifier.value = value;
+
+  int currentQuestionId = 0;
+  int selectedAnswerId = 0;
 }

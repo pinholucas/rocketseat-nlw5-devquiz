@@ -2,21 +2,61 @@ import 'package:devquiz/challenge/widgets/answer/answer_widget.dart';
 import 'package:devquiz/core/app_text_styles.dart';
 import 'package:devquiz/shared/models/answer_model.dart';
 import 'package:devquiz/shared/models/question_model.dart';
+import 'package:devquiz/shared/models/user_data_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class QuizWidget extends StatefulWidget {
+  final UserDataModel userData;
+  final int quizId;
   final QuestionModel question;
+  final ValueChanged<int> onSelect;
 
-  QuizWidget({required this.question});
+  QuizWidget(
+      {required this.userData,
+      required this.quizId,
+      required this.question,
+      required this.onSelect});
 
   @override
   _QuizWidgetState createState() => _QuizWidgetState();
 }
 
 class _QuizWidgetState extends State<QuizWidget> {
-  int indexSelected = -1;
+  int selectedAnswerId = -1;
 
-  AnswerModel answer(int index) => widget.question.answers[index];
+  AnswerModel answer(int answerId) =>
+      widget.question.answers.firstWhere((element) => element.id == answerId);
+
+  bool isAnswered(int answerID) {
+    final questionId = widget.question.id;
+
+    final isAnswered = widget.userData.quizzesData
+        .firstWhere((element) => element.id == widget.quizId)
+        .answersData
+        .firstWhere((element) => element.questionId == questionId)
+        .isAnswered;
+
+    return isAnswered;
+  }
+
+  int getAnswerChoise(int answerIndex) {
+    final questionId = widget.question.id;
+
+    final isAnswered = widget.userData.quizzesData
+        .firstWhere((element) => element.id == widget.quizId)
+        .answersData
+        .firstWhere((element) => element.questionId == questionId)
+        .answerChoiceId;
+
+    return isAnswered;
+  }
+
+  bool isSelected(int answerIndex) {
+    return isAnswered(answerIndex) &&
+            getAnswerChoise(answerIndex) == answerIndex
+        ? true
+        : selectedAnswerId == answerIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,23 +69,22 @@ class _QuizWidgetState extends State<QuizWidget> {
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Wrap(
               runSpacing: 8,
-              children: [
-                for (var i = 0; i < widget.question.answers.length; i++)
-                  AnswerWidget(
-                    answer: answer(i),
-                    isAnswered: widget.question.isAnswered,
-                    isSelected: (widget.question.isAnswered &&
-                            widget.question.answerChoice == i
-                        ? true
-                        : indexSelected == i),
-                    onTap: () {
-                      if (!widget.question.isAnswered) {
-                        indexSelected = i;
-                        setState(() {});
-                      }
-                    },
-                  ),
-              ],
+              children: widget.question.answers
+                  .map(
+                    (e) => AnswerWidget(
+                      answer: answer(e.id),
+                      isAnswered: isAnswered(e.id),
+                      isSelected: isSelected(e.id),
+                      onTap: () {
+                        if (!isAnswered(e.id)) {
+                          selectedAnswerId = e.id;
+                          setState(() {});
+                          widget.onSelect(e.id);
+                        }
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
           ),
         ],

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 class UserDataAnswerModel {
   final int questionId;
-  final bool isAnswered;
-  final int answerChoiceId;
+  bool isAnswered;
+  int answerChoiceId;
 
   UserDataAnswerModel(
       {required this.questionId,

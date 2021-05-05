@@ -4,7 +4,7 @@ import 'package:devquiz/shared/models/user_data_answer_model.dart';
 
 class UserDataQuizzModel {
   final int id;
-  final int answeredQuestions;
+  int answeredQuestions;
   final List<UserDataAnswerModel> answersData;
 
   UserDataQuizzModel(

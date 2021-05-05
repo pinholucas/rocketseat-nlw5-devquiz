@@ -27,33 +27,14 @@ class HomeRepository {
   Future<File> get _userDataFile async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final userDataFile = File(documentsDirectory.path + '/userData.json');
+    print(userDataFile);
 
     return userDataFile;
   }
 
-  Future<dynamic> get _userData async {
+  Future<File> saveUserData(UserDataModel userData) async {
     final userDataFile = await _userDataFile;
 
-    final String response = userDataFile.readAsStringSync();
-    final Object userData = jsonDecode(response);
-
-    return userData;
-  }
-
-  Future<File> saveUserData(Object userData) async {
-    final userDataFile = await _userDataFile;
-
-    return userDataFile.writeAsString(jsonEncode(userData));
-  }
-
-  void setQuestionsAnswered() async {
-    final userData = await _userData;
-
-    userData[0]['score'] = userData[0]['score'] + 1;
-
-    print(userData);
-    print(jsonEncode(userData));
-
-    saveUserData(userData);
+    return userDataFile.writeAsString(userData.toJson());
   }
 }

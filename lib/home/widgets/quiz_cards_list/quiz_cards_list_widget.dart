@@ -1,15 +1,65 @@
 import 'package:devquiz/challenge/challenge_page.dart';
+import 'package:devquiz/home/home_controller.dart';
 import 'package:devquiz/home/widgets/quiz_card/quiz_card_widget.dart';
-import 'package:devquiz/shared/models/quiz_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class QuizCardListWidget extends StatelessWidget {
-  final List<QuizModel> quizzes;
-
-  QuizCardListWidget({required this.quizzes});
+class QuizCardListWidget extends StatefulWidget {
+  QuizCardListWidget();
 
   @override
+  _QuizCardListWidgetState createState() => _QuizCardListWidgetState();
+}
+
+class _QuizCardListWidgetState extends State<QuizCardListWidget> {
+  @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<HomeController>(context);
+    var userData = controller.user!;
+    var quizzes = controller.quizzes!;
+
+    int getQuizzQuestionsAnswered(int quizzId) {
+      final contain =
+          userData.quizzesData.where((element) => element.id == quizzId);
+
+      if (contain.isNotEmpty) {
+        final answeredQuestions = userData.quizzesData
+            .firstWhere((element) => element.id == quizzId)
+            .answeredQuestions;
+
+        return answeredQuestions;
+      }
+
+      return 0;
+    }
+
+    int getQuizzFirstUnansweredQuestionIndex(int quizzId) {
+      final contain =
+          userData.quizzesData.where((element) => element.id == quizzId);
+
+      if (contain.isNotEmpty) {
+        final answersData = userData.quizzesData
+            .firstWhere((element) => element.id == quizzId)
+            .answersData;
+
+        if (answersData.isNotEmpty) {
+          final questionId = answersData
+              .firstWhere((element) => !element.isAnswered)
+              .questionId;
+
+          final question = quizzes[0]
+              .questions
+              .firstWhere((element) => element.id == questionId);
+
+          final questionIndex = quizzes[0].questions.indexOf(question);
+
+          return questionIndex;
+        }
+      }
+
+      return 0;
+    }
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(top: 25),
@@ -18,25 +68,29 @@ class QuizCardListWidget extends StatelessWidget {
           mainAxisSpacing: 15,
           crossAxisCount: 2,
           children: quizzes
-              .map((e) => QuizCardWidget(
-                    title: e.title,
-                    icon: e.icon,
-                    completed: e.questionsAnswered,
-                    total: e.questions.length,
-                    onTap: () {
-                      int index = e.questions
-                          .indexWhere((element) => element.isAnswered == false);
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (contexto) => ChallengePage(
-                                    questions: e.questions,
-                                    currentQuestion: index,
-                                    totalQuestions: e.questions.length,
-                                  )));
-                    },
-                  ))
+              .map(
+                (e) => QuizCardWidget(
+                  title: e.title,
+                  icon: e.icon,
+                  completed: getQuizzQuestionsAnswered(e.id),
+                  total: e.questions.length,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (contexto) => ChallengePage(
+                          userData: userData,
+                          quizId: e.id,
+                          questions: e.questions,
+                          currentQuestion:
+                              getQuizzFirstUnansweredQuestionIndex(e.id),
+                          totalQuestions: e.questions.length,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
               .toList(),
         ),
       ),
