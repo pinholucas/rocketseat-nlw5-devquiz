@@ -1,5 +1,6 @@
 import 'package:devquiz/feedback/feedback_page.dart';
 import 'package:devquiz/home/home_controller.dart';
+import 'package:devquiz/home/home_page.dart';
 import 'package:devquiz/shared/models/user_data_model.dart';
 import 'package:devquiz/shared/widgets/next_button/next_button_widget.dart';
 import 'package:devquiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
@@ -73,11 +74,23 @@ class _ChallengePageState extends State<ChallengePage> {
           .elementAt(page)
           .id;
 
+      controller.selectedAnswerId = 0;
+
       setState(() {});
     }
 
     _onSelect(int answerId) {
       controller.selectedAnswerId = answerId;
+      setState(() {});
+    }
+
+    bool isCurrentQuestionAnswered() {
+      return homeController.user!.quizzesData
+          .firstWhere((element) => element.id == widget.quizId)
+          .answersData
+          .firstWhere(
+              (element) => element.questionId == controller.currentQuestionId)
+          .isAnswered;
     }
 
     bool isRightAnswer(int questionId) {
@@ -86,6 +99,33 @@ class _ChallengePageState extends State<ChallengePage> {
           .answers
           .firstWhere((element) => element.id == controller.selectedAnswerId)
           .isRight;
+    }
+
+    handleUserQuestionAnswer() {
+      if (controller.selectedAnswerId > 0) {
+        final questionId = widget.questions[pageController.page!.toInt()].id;
+
+        final getType =
+            isRightAnswer(questionId) ? 'rightAnswer' : 'wrongAnswer';
+
+        homeController.setQuestionAnswered(
+            widget.quizId,
+            controller.currentQuestionId,
+            controller.selectedAnswerId,
+            isRightAnswer(questionId));
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FeedbackPage(
+                userData: widget.userData,
+                quizId: widget.quizId,
+                type: getType,
+                questions: widget.questions,
+                currentQuestion: widget.currentQuestion),
+          ),
+        );
+      }
     }
 
     return Scaffold(
@@ -119,45 +159,48 @@ class _ChallengePageState extends State<ChallengePage> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              NextButton.white(
-                label: 'Pular',
-                onTap: () {
-                  pageController.nextPage(
-                      duration: Duration(milliseconds: 100),
-                      curve: Curves.linear);
-                },
-              ),
-              SizedBox(width: 7),
-              NextButton.green(
-                label: 'Confirmar',
-                onTap: () {
-                  final questionId =
-                      widget.questions[pageController.page!.toInt()].id;
-
-                  final getType =
-                      isRightAnswer(questionId) ? 'rightAnswer' : 'wrongAnswer';
-
-                  homeController.setQuestionAnswered(
-                      widget.quizId,
-                      controller.currentQuestionId,
-                      controller.selectedAnswerId,
-                      isRightAnswer(questionId));
-
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FeedbackPage(
-                          userData: widget.userData,
-                          quizId: widget.quizId,
-                          type: getType,
-                          questions: widget.questions,
-                          currentQuestion: widget.currentQuestion),
+            children: !isCurrentQuestionAnswered()
+                ? [
+                    NextButton.white(
+                      label: 'Pular',
+                      onTap: () {
+                        pageController.nextPage(
+                            duration: Duration(milliseconds: 100),
+                            curve: Curves.linear);
+                      },
                     ),
-                  );
-                },
-              ),
-            ],
+                    SizedBox(width: 7),
+                    NextButton.green(
+                      label:
+                          isCurrentQuestionAnswered() ? 'Próximo' : 'Confirmar',
+                      onTap: handleUserQuestionAnswer,
+                      isDisabled:
+                          controller.selectedAnswerId == 0 ? true : false,
+                    ),
+                  ]
+                : [
+                    ValueListenableBuilder<int>(
+                      valueListenable: controller.currentQuestionIndexNotifier,
+                      builder: (context, value, _) => NextButton.white(
+                        label: (value + 1 == widget.totalQuestions)
+                            ? 'Voltar ao início'
+                            : 'Próxima',
+                        onTap: () {
+                          if (value + 1 < widget.totalQuestions) {
+                            pageController.nextPage(
+                                duration: Duration(milliseconds: 100),
+                                curve: Curves.linear);
+                          } else {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
           ),
         ),
       ),

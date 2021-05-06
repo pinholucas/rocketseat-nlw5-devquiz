@@ -78,7 +78,6 @@ class _QuizCardListWidgetState extends State<QuizCardListWidget> {
                   completed: getQuizzQuestionsAnswered(e.id),
                   total: e.questions.length,
                   onTap: () {
-                    print(getQuizzFirstUnansweredQuestionIndex(e.id));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

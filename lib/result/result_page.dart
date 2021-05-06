@@ -40,8 +40,6 @@ class _ResultPageState extends State<ResultPage> {
         .answersData
         .length;
 
-    print(rightQuestions);
-
     return Scaffold(
       body: SafeArea(
         child: Container(
