@@ -34,16 +34,19 @@ class _QuizCardListWidgetState extends State<QuizCardListWidget> {
     }
 
     int getQuizzFirstUnansweredQuestionIndex(int quizzId) {
-      final contain =
+      final quizzesData =
           userData.quizzesData.where((element) => element.id == quizzId);
 
-      if (contain.isNotEmpty) {
-        final answersData = userData.quizzesData
+      if (quizzesData.isNotEmpty) {
+        final questionNotAnswered = userData.quizzesData
             .firstWhere((element) => element.id == quizzId)
-            .answersData;
+            .answersData
+            .where((element) => !element.isAnswered);
 
-        if (answersData.isNotEmpty) {
-          final questionId = answersData
+        if (questionNotAnswered.isNotEmpty) {
+          final questionId = userData.quizzesData
+              .firstWhere((element) => element.id == quizzId)
+              .answersData
               .firstWhere((element) => !element.isAnswered)
               .questionId;
 
@@ -75,6 +78,7 @@ class _QuizCardListWidgetState extends State<QuizCardListWidget> {
                   completed: getQuizzQuestionsAnswered(e.id),
                   total: e.questions.length,
                   onTap: () {
+                    print(getQuizzFirstUnansweredQuestionIndex(e.id));
                     Navigator.push(
                       context,
                       MaterialPageRoute(

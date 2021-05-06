@@ -1,6 +1,7 @@
 import 'package:devquiz/challenge/challenge_page.dart';
 import 'package:devquiz/core/app_images.dart';
 import 'package:devquiz/core/app_text_styles.dart';
+import 'package:devquiz/result/result_page.dart';
 import 'package:devquiz/shared/models/question_model.dart';
 import 'package:devquiz/shared/models/user_data_model.dart';
 import 'package:devquiz/shared/widgets/next_button/next_button_widget.dart';
@@ -63,17 +64,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           label: 'Avançar',
                           onTap: () {
                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChallengePage(
-                                          userData: widget.userData,
-                                          quizId: widget.quizId,
-                                          questions: widget.questions,
-                                          currentQuestion:
-                                              widget.currentQuestion + 1,
-                                          totalQuestions:
-                                              widget.questions.length,
-                                        )));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => widget.currentQuestion +
+                                            1 <
+                                        widget.questions.length
+                                    ? ChallengePage(
+                                        userData: widget.userData,
+                                        quizId: widget.quizId,
+                                        questions: widget.questions,
+                                        currentQuestion:
+                                            widget.currentQuestion + 1,
+                                        totalQuestions: widget.questions.length,
+                                      )
+                                    : ResultPage(quizId: widget.quizId),
+                              ),
+                            );
                           }),
                     ],
                   ),

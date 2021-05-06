@@ -4,17 +4,20 @@ class UserDataAnswerModel {
   final int questionId;
   bool isAnswered;
   int answerChoiceId;
+  bool isRightAnswer;
 
   UserDataAnswerModel(
       {required this.questionId,
       required this.isAnswered,
-      required this.answerChoiceId});
+      required this.answerChoiceId,
+      required this.isRightAnswer});
 
   Map<String, dynamic> toMap() {
     return {
       'questionId': questionId,
       'isAnswered': isAnswered,
       'answerChoiceId': answerChoiceId,
+      'isRightAnswer': isRightAnswer,
     };
   }
 
@@ -23,6 +26,7 @@ class UserDataAnswerModel {
       questionId: map['questionId'],
       isAnswered: map['isAnswered'],
       answerChoiceId: map['answerChoiceId'],
+      isRightAnswer: map['isRightAnswer'],
     );
   }
 

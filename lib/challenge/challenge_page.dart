@@ -80,6 +80,14 @@ class _ChallengePageState extends State<ChallengePage> {
       controller.selectedAnswerId = answerId;
     }
 
+    bool isRightAnswer(int questionId) {
+      return widget.questions
+          .firstWhere((element) => element.id == questionId)
+          .answers
+          .firstWhere((element) => element.id == controller.selectedAnswerId)
+          .isRight;
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
@@ -124,22 +132,17 @@ class _ChallengePageState extends State<ChallengePage> {
               NextButton.green(
                 label: 'Confirmar',
                 onTap: () {
-                  homeController.setQuestionAnswered(
-                      widget.quizId,
-                      controller.currentQuestionId,
-                      controller.selectedAnswerId);
-
                   final questionId =
                       widget.questions[pageController.page!.toInt()].id;
 
-                  final getType = widget.questions
-                          .firstWhere((element) => element.id == questionId)
-                          .answers
-                          .firstWhere((element) =>
-                              element.id == controller.selectedAnswerId)
-                          .isRight
-                      ? 'rightAnswer'
-                      : 'wrongAnswer';
+                  final getType =
+                      isRightAnswer(questionId) ? 'rightAnswer' : 'wrongAnswer';
+
+                  homeController.setQuestionAnswered(
+                      widget.quizId,
+                      controller.currentQuestionId,
+                      controller.selectedAnswerId,
+                      isRightAnswer(questionId));
 
                   Navigator.pushReplacement(
                     context,

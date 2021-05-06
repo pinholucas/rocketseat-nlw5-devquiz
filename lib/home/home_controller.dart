@@ -58,7 +58,8 @@ class HomeController extends ChangeNotifier {
     }
   }
 
-  void setQuestionAnswered(int quizId, int questionId, int answerId) async {
+  void setQuestionAnswered(
+      int quizId, int questionId, int answerId, bool isRightAnswer) async {
     final userData = user!;
 
     userData.quizzesData
@@ -76,6 +77,12 @@ class HomeController extends ChangeNotifier {
         .answersData
         .firstWhere((element) => element.questionId == questionId)
         .answerChoiceId = answerId;
+
+    userData.quizzesData
+        .firstWhere((element) => element.id == quizId)
+        .answersData
+        .firstWhere((element) => element.questionId == questionId)
+        .isRightAnswer = isRightAnswer;
 
     repository.saveUserData(userData);
 
