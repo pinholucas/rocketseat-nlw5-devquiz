@@ -1,7 +1,9 @@
 import 'package:devquiz/home/home_repository.dart';
 import 'package:devquiz/home/home_state.dart';
 import 'package:devquiz/shared/models/quiz_model.dart';
+import 'package:devquiz/shared/models/user_data_answer_model.dart';
 import 'package:devquiz/shared/models/user_data_model.dart';
+import 'package:devquiz/shared/models/user_data_quizz_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -32,8 +34,6 @@ class HomeController extends ChangeNotifier {
   void getQuizzes() async {
     quizzState = HomeState.loading;
 
-    //await Future.delayed(Duration(seconds: 2));
-
     quizzes = await repository.getQuizzes();
 
     quizzState = HomeState.success;
@@ -56,6 +56,30 @@ class HomeController extends ChangeNotifier {
 
       await userDataFile.writeAsString(user.toJson());
     }
+  }
+
+  void addUserNewQuizData(int quizId) {
+    final userData = user!;
+
+    List<UserDataAnswerModel> quizAnswersData = [];
+
+    var questions =
+        quizzes!.firstWhere((element) => element.id == quizId).questions;
+
+    questions.forEach((element) => {
+          quizAnswersData.add(new UserDataAnswerModel(
+              questionId: element.id,
+              isAnswered: false,
+              answerChoiceId: 0,
+              isRightAnswer: false))
+        });
+
+    UserDataQuizzModel quizData = new UserDataQuizzModel(
+        id: quizId, answeredQuestions: 0, answersData: quizAnswersData);
+
+    userData.quizzesData.add(quizData);
+
+    repository.saveUserData(userData);
   }
 
   void setQuestionAnswered(

@@ -85,12 +85,21 @@ class _ChallengePageState extends State<ChallengePage> {
     }
 
     bool isCurrentQuestionAnswered() {
-      return homeController.user!.quizzesData
-          .firstWhere((element) => element.id == widget.quizId)
-          .answersData
-          .firstWhere(
-              (element) => element.questionId == controller.currentQuestionId)
-          .isAnswered;
+      var contain = homeController.user!.quizzesData
+          .where((element) => element.id == widget.quizId);
+
+      if (contain.isNotEmpty) {
+        return homeController.user!.quizzesData
+            .firstWhere((element) => element.id == widget.quizId)
+            .answersData
+            .firstWhere(
+                (element) => element.questionId == controller.currentQuestionId)
+            .isAnswered;
+      }
+
+      homeController.addUserNewQuizData(widget.quizId);
+
+      return false;
     }
 
     bool isRightAnswer(int questionId) {
