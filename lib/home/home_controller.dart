@@ -53,7 +53,6 @@ class HomeController extends ChangeNotifier {
           name: 'Lucas Pinho',
           photoUrl:
               'https://pbs.twimg.com/profile_images/1293766775763591169/ESk4Xxw3_400x400.jpg',
-          score: 15,
           quizzesData: []);
 
       await userDataFile.writeAsString(user.toJson());

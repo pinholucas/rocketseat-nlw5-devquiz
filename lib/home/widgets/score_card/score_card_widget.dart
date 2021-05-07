@@ -4,9 +4,7 @@ import 'package:devquiz/home/widgets/chart/chart_widget.dart';
 import 'package:flutter/material.dart';
 
 class ScoreCardWidget extends StatelessWidget {
-  final int score;
-
-  const ScoreCardWidget({required this.score});
+  const ScoreCardWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class ScoreCardWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: ChartWidget(score: score),
+              child: ChartWidget(),
             ),
             Expanded(
               flex: 3,

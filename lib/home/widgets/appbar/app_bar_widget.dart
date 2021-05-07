@@ -50,7 +50,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           ),
           Align(
             alignment: Alignment(0.0, 1.2),
-            child: ScoreCardWidget(score: userData.score),
+            child: ScoreCardWidget(),
           )
         ],
       ),
