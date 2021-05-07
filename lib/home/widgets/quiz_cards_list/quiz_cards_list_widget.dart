@@ -18,6 +18,9 @@ class _QuizCardListWidgetState extends State<QuizCardListWidget> {
     var userData = controller.user!;
     var quizzes = controller.quizzes!;
 
+    var filteredQuizzes = controller.quizzes!
+        .where((element) => element.level == controller.quizzesLevel);
+
     int getQuizzQuestionsAnswered(int quizzId) {
       final contain =
           userData.quizzesData.where((element) => element.id == quizzId);
@@ -70,30 +73,28 @@ class _QuizCardListWidgetState extends State<QuizCardListWidget> {
           crossAxisSpacing: 15,
           mainAxisSpacing: 15,
           crossAxisCount: 2,
-          children: quizzes
-              .map(
-                (e) => QuizCardWidget(
-                  title: e.title,
-                  icon: e.icon,
-                  completed: getQuizzQuestionsAnswered(e.id),
-                  total: e.questions.length,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (contexto) => ChallengePage(
-                          userData: userData,
-                          quizId: e.id,
-                          questions: e.questions,
-                          currentQuestion:
-                              getQuizzFirstUnansweredQuestionIndex(e.id),
-                          totalQuestions: e.questions.length,
+          children: filteredQuizzes
+              .map((e) => QuizCardWidget(
+                    title: e.title,
+                    icon: e.icon,
+                    completed: getQuizzQuestionsAnswered(e.id),
+                    total: e.questions.length,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (contexto) => ChallengePage(
+                            userData: userData,
+                            quizId: e.id,
+                            questions: e.questions,
+                            currentQuestion:
+                                getQuizzFirstUnansweredQuestionIndex(e.id),
+                            totalQuestions: e.questions.length,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              )
+                      );
+                    },
+                  ))
               .toList(),
         ),
       ),

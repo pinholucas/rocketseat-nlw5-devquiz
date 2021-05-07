@@ -1,4 +1,5 @@
 import 'package:devquiz/home/home_controller.dart';
+import 'package:devquiz/shared/models/quiz_model.dart';
 import 'package:devquiz/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ class _AppWidgetState extends State<AppWidget> {
         .checkUserDataFileExistence()
         .then((_) => controller.getUser())
         .then((_) => controller.getQuizzes());
+
+    controller.changeQuizLevel(Level.easy);
 
     controller.stateNotifier.addListener(() {
       setState(() {});

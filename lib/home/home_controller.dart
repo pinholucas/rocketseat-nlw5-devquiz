@@ -21,6 +21,8 @@ class HomeController extends ChangeNotifier {
   UserDataModel? user;
   List<QuizModel>? quizzes;
 
+  Level? quizzesLevel;
+
   final repository = HomeRepository();
 
   void getUser() async {
@@ -56,6 +58,12 @@ class HomeController extends ChangeNotifier {
 
       await userDataFile.writeAsString(user.toJson());
     }
+  }
+
+  void changeQuizLevel(Level level) {
+    quizzesLevel = level;
+
+    notifyListeners();
   }
 
   void addUserNewQuizData(int quizId) {

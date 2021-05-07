@@ -3,7 +3,7 @@
         "id": 1,
         "title": "NLW 5 Flutter",
         "icon": "blocks",
-        "level": "facil",
+        "level": "easy",
         "questions": [
             {
                 "id": 1,
@@ -75,9 +75,9 @@
 
     {
         "id": 2,
-        "title": "NLW 5 Flutter 2",
+        "title": "Flutter é bom?",
         "icon": "blocks",
-        "level": "facil",
+        "level": "medium",
         "questions": [
             {
                 "id": 1,
