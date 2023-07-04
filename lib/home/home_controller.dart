@@ -73,13 +73,12 @@ class HomeController extends ChangeNotifier {
     var questions =
         quizzes!.firstWhere((element) => element.id == quizId).questions;
 
-    questions.forEach((element) => {
-          quizAnswersData.add(new UserDataAnswerModel(
+    questions.forEach((element) => quizAnswersData.add(new UserDataAnswerModel(
               questionId: element.id,
               isAnswered: false,
               answerChoiceId: 0,
               isRightAnswer: false))
-        });
+        );
 
     UserDataQuizzModel quizData = new UserDataQuizzModel(
         id: quizId, answeredQuestions: 0, answersData: quizAnswersData);
